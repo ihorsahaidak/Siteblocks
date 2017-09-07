@@ -45,6 +45,16 @@
                             <depends><enabled>1</enabled></depends>
                             <comment>The count of blocks</comment>
                         </blocks>
+                        <raw_text module="siteblocks" translate="label comment">
+                            <label>Raw text</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_Website>1</show_in_Website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <comment>The raw text</comment>
+                        </raw_text>
                     </fields>
                 </settings>
             </groups>

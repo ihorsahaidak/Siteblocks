@@ -6,13 +6,18 @@
         </Thesagaydak_Siteblocks>
     </modules>
     <global>
+        <blocks>
+            <siteblocks>
+                <class>Thesagaydak_Siteblocks_Block</class>
+            </siteblocks>
+        </blocks>
         <models>
             <siteblocks>
                 <class>Thesagaydak_Siteblocks_Model</class>
                 <resourceModel>siteblocks_resource</resourceModel>
             </siteblocks>
             <siteblocks_resource>
-                <class>Thesagaydak_Siteblocks_Resource_Model</class>
+                <class>Thesagaydak_Siteblocks_Model_Resource</class>
                 <entities>
                     <block>
                         <table>thesagaydak_siteblock</table>
@@ -34,6 +39,13 @@
         </helpers>
     </global>
     <frontend>
+        <layout>
+            <updates>
+                <siteblocks module="siteblocks">
+                    <file>siteblocks.xml</file>
+                </siteblocks>
+            </updates>
+        </layout>
         <routers>
             <siteblocks>
                 <use>standard</use>
