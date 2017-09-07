@@ -30,7 +30,7 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminh
             'header'    => Mage::helper('siteblocks')->__('Status'),
             'align'     => 'left',
             'index'     => 'block_status',
-            'type'      =>  'options',
+            'type'      => 'options',
             'options'   => Mage::getModel('siteblocks/source_status')->toArray()
         ));
 

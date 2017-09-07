@@ -9,31 +9,23 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_A
     {
         parent::__construct();
         $this->setId('block_form');
-        $this->setTitle(Mage::helper('cms')->__('Block Information'));
-    }
-
-    /**
-     * Load Wysiwyg on demand and Prepare layout
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
-        }
+        $this->setTitle(Mage::helper('siteblocks')->__('Block Information'));
     }
 
     protected function _prepareForm()
     {
-        $model = Mage::registry('cms_block');
+        $model = Mage::registry('siteblocks_block');
 
         $form = new Varien_Data_Form(
-            array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post')
+            array(
+                'id' => 'edit_form',
+                'action' => $this->getUrl('*/*/save', $this->getRequest()->getParam('block_id')),
+                'method' => 'post')
         );
 
         $form->setHtmlIdPrefix('block_');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('cms')->__('General Information'), 'class' => 'fieldset-wide'));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('siteblocks')->__('General Information'), 'class' => 'fieldset-wide'));
 
         if ($model->getBlockId()) {
             $fieldset->addField('block_id', 'hidden', array(
@@ -43,62 +35,27 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_A
 
         $fieldset->addField('title', 'text', array(
             'name'      => 'title',
-            'label'     => Mage::helper('cms')->__('Block Title'),
-            'title'     => Mage::helper('cms')->__('Block Title'),
+            'label'     => Mage::helper('siteblocks')->__('Block Title'),
+            'title'     => Mage::helper('siteblocks')->__('Block Title'),
             'required'  => true,
         ));
 
-        $fieldset->addField('identifier', 'text', array(
-            'name'      => 'identifier',
-            'label'     => Mage::helper('cms')->__('Identifier'),
-            'title'     => Mage::helper('cms')->__('Identifier'),
+
+
+        $fieldset->addField('block_status', 'select', array(
+            'label'     => Mage::helper('siteblocks')->__('Status'),
+            'title'     => Mage::helper('siteblocks')->__('Status'),
+            'name'      => 'block_status',
             'required'  => true,
-            'class'     => 'validate-xml-identifier',
+            'options'   => Mage::getModel('siteblocks/source_status')->toArray()
         ));
 
-        /**
-         * Check is single store mode
-         */
-        if (!Mage::app()->isSingleStoreMode()) {
-            $field =$fieldset->addField('store_id', 'multiselect', array(
-                'name'      => 'stores[]',
-                'label'     => Mage::helper('cms')->__('Store View'),
-                'title'     => Mage::helper('cms')->__('Store View'),
-                'required'  => true,
-                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
-            ));
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
-            $field->setRenderer($renderer);
-        }
-        else {
-            $fieldset->addField('store_id', 'hidden', array(
-                'name'      => 'stores[]',
-                'value'     => Mage::app()->getStore(true)->getId()
-            ));
-            $model->setStoreId(Mage::app()->getStore(true)->getId());
-        }
-
-        $fieldset->addField('is_active', 'select', array(
-            'label'     => Mage::helper('cms')->__('Status'),
-            'title'     => Mage::helper('cms')->__('Status'),
-            'name'      => 'is_active',
-            'required'  => true,
-            'options'   => array(
-                '1' => Mage::helper('cms')->__('Enabled'),
-                '0' => Mage::helper('cms')->__('Disabled'),
-            ),
-        ));
-        if (!$model->getId()) {
-            $model->setData('is_active', '1');
-        }
-
-        $fieldset->addField('content', 'editor', array(
+        $fieldset->addField('content', 'textarea', array(
             'name'      => 'content',
-            'label'     => Mage::helper('cms')->__('Content'),
-            'title'     => Mage::helper('cms')->__('Content'),
+            'label'     => Mage::helper('siteblocks')->__('Content'),
+            'title'     => Mage::helper('siteblocks')->__('Content'),
             'style'     => 'height:36em',
             'required'  => true,
-            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
         ));
 
         $form->setValues($model->getData());
