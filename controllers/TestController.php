@@ -3,7 +3,8 @@ class Thesagaydak_Siteblocks_TestController extends Mage_Core_Controller_Front_A
 {
     public function testAction()
     {
-        var_dump($this->getRequest()->getParams());
+        $enabled = Mage::getStoreConfig('siteblocks/settings/blocks');
+        var_dump($enabled);
         die('test');
     }
 }

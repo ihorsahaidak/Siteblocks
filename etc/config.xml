@@ -74,6 +74,10 @@
         </translate>
     </admin>
     <default>
-
+        <siteblocks>
+            <settings>
+                <enabled>1</enabled>
+            </settings>
+        </siteblocks>
     </default>
 </config>
