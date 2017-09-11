@@ -19,7 +19,7 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_A
         $form = new Varien_Data_Form(
             array(
                 'id' => 'edit_form',
-                'action' => $this->getUrl('*/*/save', $this->getRequest()->getParam('block_id')),
+                'action' => $this->getUrl('*/*/save', array('block_id' => $this->getRequest()->getParam('block_id'))),
                 'method' => 'post')
         );
 

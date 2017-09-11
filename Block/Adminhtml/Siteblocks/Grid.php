@@ -43,6 +43,34 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminh
         return parent::_prepareColumns();
     }
 
+    public function _prepareMassaction()
+    {
+        $this->setMassactionIdField('block_id');
+        $this->getMassactionBlock()->setIdFieldName('block_id');
+        $this->getMassactionBlock()
+            ->addItem('delete',
+                array(
+                    'label'     =>  Mage::helper('siteblocks')->__('Delete'),
+                    'url'    =>  $this->getUrl('*/*/massDelete'),
+                    'confirm'   =>  Mage::helper('siteblocks')->__('Are you sure?')
+                ))
+            ->addItem('status',
+                array(
+                    'label'     =>  Mage::helper('siteblocks')->__('Update status'),
+                    'url'    =>  $this->getUrl('*/*/massStatus'),
+                    'additional'    => array('block_status' =>
+                        array(
+                            'name' => 'block_status',
+                            'type'  => 'select',
+                            'class' => 'required-entry',
+                            'label' => Mage::helper('siteblocks')->__('Status'),
+                            'values' => Mage::getModel('siteblocks/source_status')->toOptionArray()
+                        )
+                    )
+                ));
+        return $this;
+    }
+
     /**
      * Row click url
      *
