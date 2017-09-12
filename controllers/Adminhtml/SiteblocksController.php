@@ -102,7 +102,9 @@ class Thesagaydak_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminht
         return $this->_redirect('*/*/');
     }
 
-
+    /**
+     * @return $this|Mage_Core_Controller_Varien_Action
+     */
     public function massDeleteAction()
     {
         $blocks = $this->getRequest()->getParams();
