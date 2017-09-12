@@ -42,6 +42,8 @@ class Thesagaydak_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminht
      */
     public function saveAction()
     {
+
+        $merge_mas = 'fea';
         try {
             $id = $this->getRequest()->getParam('block_id');
             $block = Mage::getModel('siteblocks/block')->load($id);
