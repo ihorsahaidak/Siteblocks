@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Thesagaydak_Siteblocks>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </Thesagaydak_Siteblocks>
     </modules>
     <global>
@@ -39,6 +39,17 @@
         </helpers>
     </global>
     <frontend>
+        <events>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <siteblocks>
+                        <class>siteblocks/observer</class>
+                        <method>checkout_cart_product_add_after</method>
+                        <type>model</type>
+                    </siteblocks>
+                </observers>
+            </checkout_cart_product_add_after>
+        </events>
         <layout>
             <updates>
                 <siteblocks module="siteblocks">
@@ -92,4 +103,14 @@
             </settings>
         </siteblocks>
     </default>
+    <crontab>
+        <jobs>
+            <siteblocks_clear_cache>
+                <shedule>
+                    <cron_expr>*/10 * * * *</cron_expr>
+                </shedule>
+                <run>siteblocks/cron::siteblocks_clear_cache</run>
+            </siteblocks_clear_cache>
+        </jobs>
+    </crontab>
 </config>

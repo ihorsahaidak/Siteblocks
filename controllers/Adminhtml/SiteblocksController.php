@@ -38,6 +38,43 @@ class Thesagaydak_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminht
     }
 
     /**
+     * @param $fieldName
+     * @param $model
+     * @return bool
+     */
+    protected function _uploadFile($fieldName,$model)
+    {
+
+        if( ! isset($_FILES[$fieldName])) {
+            return false;
+        }
+        $file = $_FILES[$fieldName];
+
+        if(isset($file['name']) && (file_exists($file['tmp_name']))){
+            if($model->getId()){
+                unlink(Mage::getBaseDir('media').DS.$model->getData($fieldName));
+            }
+            try
+            {
+                $path = Mage::getBaseDir('media') . DS . 'siteblocks' . DS;
+                $uploader = new Varien_File_Uploader($file);
+                $uploader->setAllowedExtensions(array('jpg','png','gif','jpeg'));
+                $uploader->setAllowRenameFiles(true);
+                $uploader->setFilesDispersion(false);
+
+                $uploader->save($path, $file['name']);
+                $model->setData($fieldName,$uploader->getUploadedFileName());
+                return true;
+            }
+            catch(Exception $e)
+            {
+                return false;
+            }
+        }
+    }
+
+
+    /**
      * post save block action
      */
     public function saveAction()
@@ -51,8 +88,11 @@ class Thesagaydak_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminht
                 ->setBlockStatus($this->getRequest()->getParam('block_status'))->setContent()
                 ->save();*/
 
-            $block->setData($this->getRequest()->getParams())
-                ->setCreatedAt(Mage::app()->getLocale()->date())
+            $block->setData($this->getRequest()->getParams());
+
+            $this->_uploadFile('image', $block);
+
+            $block->setCreatedAt(Mage::app()->getLocale()->date())
                 ->save();
 
             if(!$block->getId()) {

@@ -20,7 +20,9 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_A
             array(
                 'id' => 'edit_form',
                 'action' => $this->getUrl('*/*/save', array('block_id' => $this->getRequest()->getParam('block_id'))),
-                'method' => 'post')
+                'method' => 'post',
+                'enctype'   => 'multipart/form-data'
+                )
         );
 
         $form->setHtmlIdPrefix('block_');
@@ -37,6 +39,15 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_A
             'name'      => 'title',
             'label'     => Mage::helper('siteblocks')->__('Block Title'),
             'title'     => Mage::helper('siteblocks')->__('Block Title'),
+            'required'  => true,
+        ));
+
+        $fieldset->addType('myimage', 'Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Render_Myimage');
+
+        $fieldset->addField('image', 'myimage', array(
+            'name'      => 'image',
+            'label'     => Mage::helper('siteblocks')->__('Image'),
+            'title'     => Mage::helper('siteblocks')->__('Image'),
             'required'  => true,
         ));
 
