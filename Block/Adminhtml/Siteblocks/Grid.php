@@ -31,6 +31,8 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminh
             'header'    => Mage::helper('siteblocks')->__('Image'),
             'align'     => 'left',
             'index'     => 'image',
+            'filter'    => false,
+            'sortable'  => false,
             'renderer'  => 'Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Grid_Renderer_Image'
         ));
 
