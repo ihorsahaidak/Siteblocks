@@ -26,10 +26,12 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminh
             'index'     => 'title',
         ));
 
+
         $this->addColumn('image', array(
             'header'    => Mage::helper('siteblocks')->__('Image'),
             'align'     => 'left',
             'index'     => 'image',
+            'renderer'  => 'Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Grid_Renderer_Image'
         ));
 
         $this->addColumn('block_status', array(

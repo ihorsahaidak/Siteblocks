@@ -42,6 +42,9 @@ class Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_A
             'required'  => true,
         ));
 
+        /**
+         * If comment below string then you will call the handler Varien_Data_Form_Element_Myimage (if you created that file manually)
+         */
         $fieldset->addType('myimage', 'Thesagaydak_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Render_Myimage');
 
         $fieldset->addField('image', 'myimage', array(
